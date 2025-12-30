@@ -32,25 +32,29 @@ flowchart LR
 ``agg_events_minute``: mart table (minute bucket + event_type)
 
 ``dlq_events``: invalid payloads + error reasonec**Tech stack**t
-- Python 3.11afKafka + Zookeeper (Docker Compose)ostgres (Docker Compose)
 
-Kafka UI (optional, via Docker)
+**Tech stack**
 
-Libraries: kafka-python, psycopg2, pydantic
+- Python 3.11
+- Kafka + Zookeeper (Docker Compose)
+- Postgres (Docker Compose)
+- Kafka UI (optional, via Docker)
+- Libraries: ``kafka-python``, ``psycopg2``, ``pydantic``
 
-Quickstart
+**Quickstart**
+
 1) Start infrastructure
-bash
-Kopiera kod
+```
 make up
-Kafka UI: http://localhost:8080
+```
+Kafka UI: ``http://localhost:8080``
 
 2) Create virtualenv + install deps
-bash
-Kopiera kod
+```
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
 3) Run consumer (terminal 1)
 bash
 Kopiera kod
