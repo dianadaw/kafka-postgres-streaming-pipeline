@@ -56,60 +56,56 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 3) Run consumer (terminal 1)
-bash
-Kopiera kod
+```
 make consumer
-4) Run producer (terminal 2)
-bash
-Kopiera kod
+```
+4)Run producer (terminal 2)
+```
 make producer
+```
+
 5) Verify results
-bash
-Kopiera kod
+```
 make stats
-You should see:
+```
+**You should see:**
 
-raw_events growing quickly
+- ``raw_events`` growing quickly
 
-dlq_events growing slowly (producer generates some invalid events)
+- ``dlq_events`` growing slowly (producer generates some invalid events)
 
-agg_events_minute showing per-minute counts per event type
+- ``agg_events_minute`` showing per-minute counts per event type
 
-Reliability notes (what this project demonstrates)
-At-least-once processing
-Offsets are committed only after a successful database commit. If the consumer fails after writing to Postgres but before committing offsets, the same message may be re-processed.
+### Reliability notes (what this project demonstrates)
+**At-least-once processing**
+Offsets are committed only after a successful database commit. 
+If the consumer fails after writing to Postgres but before committing offsets, the same message may be re-processed.
 
-Idempotency / deduplication
+**Idempotency / deduplication**
 Duplicates are handled safely:
-
-raw_events.event_id is a PRIMARY KEY
-
-inserts use ON CONFLICT DO NOTHING
-
+- ``raw_events.event_id`` is a PRIMARY KEY
+- inserts use ``ON CONFLICT DO NOTHING``
 This makes ingestion idempotent even under at-least-once delivery.
 
-DLQ pattern
+**DLQ pattern**
 Invalid events are:
+- sent to Kafka topic ``events_dlq``
+- stored in Postgres table ``dlq_events`` with the error reason
 
-sent to Kafka topic events_dlq
-
-stored in Postgres table dlq_events with the error reason
-
-Useful commands
+**Useful commands**
 Stop everything:
-
-bash
-Kopiera kod
+```
 make down
-Open Postgres shell:
-
-bash
-Kopiera kod
+```
+Postgres shell:
+```
 make psql
+```
+
 Project structure
-graphql
-Kopiera kod
-.
+## Project structure
+```
+
 ├─ consumer/                 # Kafka consumer → Postgres writer
 ├─ producer/                 # Simulated Kafka producer
 ├─ common/                   # Shared event schema (Pydantic)
@@ -117,5 +113,4 @@ Kopiera kod
 ├─ docker-compose.yml        # Kafka + Postgres + Kafka UI
 ├─ Makefile                  # Convenience commands
 └─ requirements.txt
-csharp
-Kopiera kod
+```
