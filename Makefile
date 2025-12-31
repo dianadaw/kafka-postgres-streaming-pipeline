@@ -11,9 +11,9 @@ producer:
 	. .venv/bin/activate && python -m producer.producer_simulated
 
 psql:
-	docker exec -it kafka-streaming-demo-postgres-1 psql -U app -d app
+	docker compose exec postgres psql -U app -d app
 
 stats:
-	docker exec -it kafka-streaming-demo-postgres-1 psql -U app -d app -c "select count(*) as raw_events from raw_events;"
-	docker exec -it kafka-streaming-demo-postgres-1 psql -U app -d app -c "select count(*) as dlq_events from dlq_events;"
-	docker exec -it kafka-streaming-demo-postgres-1 psql -U app -d app -c "select * from agg_events_minute order by minute_ts desc limit 10;"
+	docker compose exec -T postgres psql -U app -d app -c "select count(*) as raw_events from raw_events;"
+	docker compose exec -T postgres psql -U app -d app -c "select count(*) as dlq_events from dlq_events;"
+	docker compose exec -T postgres psql -U app -d app -c "select * from agg_events_minute order by minute_ts desc limit 10;"
