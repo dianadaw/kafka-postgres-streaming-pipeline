@@ -1,4 +1,4 @@
-# Kafka -> Postgres Streaming Pipeline (Python)
+# Kafka -> Postgres Streaming Pipeline
 
 A small, portfolio-friendly streaming pipeline that demonstrates core data engineering patterns:
 
