@@ -59,7 +59,7 @@ pip install -r requirements.txt
 ```
 make consumer
 ```
-4)Run producer (terminal 2)
+4) Run producer (terminal 2)
 ```
 make producer
 ```
